@@ -13,7 +13,7 @@
 # --- CONFIGURAÇÕES DO AMBIENTE (ALTERAR CONFORME NECESSÁRIO) ---
 $DomainName = "aster.local"
 $NetbiosName = "ASTER"
-$SafeModePassword = ConvertTo-SecureString "P@ssw0rd2026!" -AsPlainText -Force
+$SafeModePassword = ConvertTo-SecureString "1V@neus@." -AsPlainText -Force
 $IPAddress = "10.0.0.1"
 $SubnetMask = "255.255.255.0"
 $Gateway = "10.0.0.1" # Geralmente o próprio DC se for o Gateway, ou ajustar conforme rede
