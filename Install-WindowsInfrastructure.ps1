@@ -11,12 +11,12 @@
 #>
 
 # --- CONFIGURAÇÕES DO AMBIENTE (ALTERAR CONFORME NECESSÁRIO) ---
-$DomainName = "emune.local"
-$NetbiosName = "EMUNE"
+$DomainName = "aster.local"
+$NetbiosName = "ASTER"
 $SafeModePassword = ConvertTo-SecureString "P@ssw0rd2026!" -AsPlainText -Force
-$IPAddress = "192.168.1.10"
+$IPAddress = "10.0.0.1"
 $SubnetMask = "255.255.255.0"
-$Gateway = "192.168.1.1"
+$Gateway = "10.0.0.1" # Geralmente o próprio DC se for o Gateway, ou ajustar conforme rede
 $DNSServer = "127.0.0.1"
 $InterfaceAlias = "Ethernet0" # Verifique o nome da sua interface com Get-NetAdapter
 
@@ -48,8 +48,8 @@ Install-ADDSForest `
 # Se o script for executado novamente após o reboot, estas etapas serão processadas.
 if ((Get-WindowsFeature -Name DHCP).Installed) {
     Write-Host "Configurando DHCP Server..." -ForegroundColor Cyan
-    Add-DhcpServerv4Scope -Name "Escopo Principal" -StartRange "192.168.1.50" -EndRange "192.168.1.200" -SubnetMask $SubnetMask
-    Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 -DnsServer $IPAddress -Router $Gateway
+    Add-DhcpServerv4Scope -Name "Escopo Principal" -StartRange "10.0.0.100" -EndRange "10.0.0.200" -SubnetMask $SubnetMask
+    Set-DhcpServerv4OptionValue -ScopeId 10.0.0.0 -DnsServer $IPAddress -Router $Gateway
     Add-DhcpServerInDC -DnsName "DC01.$DomainName" -IPAddress $IPAddress
 } else {
     Install-WindowsFeature -Name DHCP -IncludeManagementTools
